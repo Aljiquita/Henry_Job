@@ -10,7 +10,7 @@ import locale
 
 
 app = FastAPI()
-# Levantar el servidor
+# Levantar el servidor 
 # uvicorn main:app --reload
 
 # en render.com mlocale -ae crea problemas por _setlocale
