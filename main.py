@@ -11,14 +11,11 @@ import locale
 
 app = FastAPI()
 # Levantar el servidor
-# uvicorn ProyectoApi:app --reload
+# uvicorn main:app --reload
 
 # en render.com me crea problemas por _setlocale
 #  y para corregir el problema se ejecuta el cambio de localidad 
-locale.setlocale(
-    category=locale.LC_ALL,
-    locale=""
-)
+locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
 
 
 df = pd.read_csv('./DataSet/movies_dataset_normalizado.csv' )
@@ -102,4 +99,13 @@ def recomendacion(titulo: str):
     plReco = list(df["title"][df['title'].str.contains(f"{titulo}")])  
     if len(plReco) > 0:
         return  {'lista recomendada': f"{plReco }" }
-    return "No se Reporta List de"
+    return "No se Reporta Este Titulo de Película Relacionado"
+
+
+@app.get("/get_recommendation/{titulo}")
+def get_recommendation(titulo: str):
+    df = pd.read_csv("./DataSet/movies_dataset_Para_EDA.csv")
+    plReco = df[["title", 'popularity']][df['title'].str.contains(f"{titulo.title()}")]
+    plReco = plReco.sort_values(by="popularity", ascending= False)  
+    return plReco.head(5)
+
