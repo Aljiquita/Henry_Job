@@ -5,47 +5,57 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import Text, Optional
 from uuid import uuid4 as uui
-import locale
-from googletrans import Translator
+import numpy as np
+
  
 
 
 app = FastAPI()
-# Levantar el servidor 
-# uvicorn main:app --reload
-
-# en render.com mlocale -ae crea problemas por _setlocale
-#  y para corregir el problema se ejecuta el cambio de localidad 
-
 
 df = pd.read_csv('./DataSet/movies_dataset_normalizado.csv' )
+
+df["release_date"] = pd.to_datetime(df["release_date"])
+df["release_month_name"] = df["release_date"].dt.month
+mes_letras= [
+    df["release_month_name"] == 1,
+    df["release_month_name"] == 2,
+    df["release_month_name"] == 3,
+    df["release_month_name"] == 4,
+    df["release_month_name"] == 5,
+    df["release_month_name"] == 6,
+    df["release_month_name"] == 7,
+    df["release_month_name"] == 8,
+    df["release_month_name"] == 9,
+    df["release_month_name"] == 10,
+    df["release_month_name"] == 11,
+    df["release_month_name"] == 12
+]
+opciones_mes_letras = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
+df["release_month_name"] = np.select(mes_letras, opciones_mes_letras)
 
 
 
 # A-) def peliculas_mes(mes): 
-
-
-
 @app.get("/peliculas_mes/{mes}")
 def peliculas_mes(mes: str):
     '''Se ingresa el mes y la función retorna la cantidad de películas que se estrenaron ese mes históricamente'''
-    mesEn = Translator.translate(mes, dest='en').text
     df["release_date"] = pd.to_datetime(df["release_date"])
     df["release_month_name"] = df['release_date'].dt.month_name()#locale='es'
-    respuesta = df["release_month_name"][df["release_month_name"] == mesEn].count()
+    respuesta = df["release_month_name"][df["release_month_name"] == mes].count()
     if respuesta > 0:
         return {'mes':mes, 'cantidad': f"{respuesta}"  }
-    return "Valor invalido.. Ej (January) "
+    return "Valor invalido.. Ej (enero) "
+
 
 
 # B-) def peliculas_dia(dia): 
 @app.get("/peliculas_dia/{dia}")
 def peliculas_dia(dia: str):
     '''Se ingresa el dia y la función retorna la cantidad de peliculas que se estrenaron ese dia históricamente'''
-    diaEn = Translator.translate(dia, dest='en').text
+    
     df["release_date"] = pd.to_datetime(df["release_date"])
     df["release_day_name"] = df['release_date'].dt.day_name()#locale='es'
-    respuesta = df["release_day_name"][df["release_day_name"]== diaEn].count()
+    respuesta = df["release_day_name"][df["release_day_name"]== dia].count()
     if respuesta > 0:
         return {'dia':dia, 'cantidad':f"{respuesta}"}
     return "Valor invalido.. Ej (Monday)"
