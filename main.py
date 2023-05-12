@@ -8,6 +8,7 @@ from uuid import uuid4 as uui
 import locale
 
 
+
 app = FastAPI()
 # Levantar el servidor
 # uvicorn ProyectoApi:app --reload
