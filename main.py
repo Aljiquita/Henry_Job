@@ -15,8 +15,8 @@ app = FastAPI()
 
 # en render.com me crea problemas por _setlocale
 #  y para corregir el problema se ejecuta el cambio de localidad 
-locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
-
+#locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
+locale.setlocale(locale.LC_ALL, locale.locale_aliases['de_DE'])
 
 df = pd.read_csv('./DataSet/movies_dataset_normalizado.csv' )
 
