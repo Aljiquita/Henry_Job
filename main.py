@@ -5,13 +5,17 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import Text, Optional
 from uuid import uuid4 as uui
+import locale
 
 
 app = FastAPI()
 # Levantar el servidor
 # uvicorn ProyectoApi:app --reload
 
-
+locale.setlocale(
+    category=locale.LC_ALL,
+    locale=""
+)
 
 df = pd.read_csv('./DataSet/movies_dataset_normalizado.csv' )
 
