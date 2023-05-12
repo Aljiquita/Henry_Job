@@ -29,11 +29,11 @@ df = pd.read_csv('./DataSet/movies_dataset_normalizado.csv' )
 def peliculas_mes(mes: str):
     '''Se ingresa el mes y la función retorna la cantidad de películas que se estrenaron ese mes históricamente'''
     df["release_date"] = pd.to_datetime(df["release_date"])
-    df["release_month_name"] = df['release_date'].dt.month_name()#locale='es'
+    df["release_month_name"] = df['release_date'].dt.month_name(locale='es')#locale='es'
     respuesta = df["release_month_name"][df["release_month_name"] == mes].count()
     if respuesta > 0:
         return {'mes':mes, 'cantidad': f"{respuesta}"  }
-    return "Valor invalido.. Ej (Enero) "
+    return "Valor invalido.. Ej (January) "
 
 
 # B-) def peliculas_dia(dia): 
@@ -43,11 +43,11 @@ def peliculas_mes(mes: str):
 def peliculas_dia(dia: str):
     '''Se ingresa el dia y la función retorna la cantidad de peliculas que se estrenaron ese dia históricamente'''
     df["release_date"] = pd.to_datetime(df["release_date"])
-    df["release_day_name"] = df['release_date'].dt.day_name()#locale='es'
+    df["release_day_name"] = df['release_date'].dt.day_name(locale='es')#locale='es'
     respuesta = df["release_day_name"][df["release_day_name"]== dia].count()
     if respuesta > 0:
         return {'dia':dia, 'cantidad':f"{respuesta}"}
-    return "Valor invalido.. Ej (Lunes)"
+    return "Valor invalido.. Ej (Monday)"
 
 
 # C-) def franquicia(franquicia): 
@@ -111,3 +111,7 @@ def get_recommendation(titulo: str):
     plReco = plReco.sort_values(by="popularity", ascending= False)  
     return plReco.head(5)
 
+locale.setlocale(
+    category=locale.LC_ALL,
+    locale=""
+)
