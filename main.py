@@ -6,7 +6,7 @@ from pydantic import BaseModel
 from typing import Text, Optional
 from uuid import uuid4 as uui
 import locale
-import googletrans
+from googletrans import Translator
  
 
 
@@ -39,8 +39,6 @@ def peliculas_mes(mes: str):
 
 
 # B-) def peliculas_dia(dia): 
-
-
 @app.get("/peliculas_dia/{dia}")
 def peliculas_dia(dia: str):
     '''Se ingresa el dia y la función retorna la cantidad de peliculas que se estrenaron ese dia históricamente'''
