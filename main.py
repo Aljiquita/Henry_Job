@@ -6,7 +6,8 @@ from pydantic import BaseModel
 from typing import Text, Optional
 from uuid import uuid4 as uui
 import locale
-
+import googletrans
+ 
 
 
 app = FastAPI()
@@ -28,9 +29,10 @@ df = pd.read_csv('./DataSet/movies_dataset_normalizado.csv' )
 @app.get("/peliculas_mes/{mes}")
 def peliculas_mes(mes: str):
     '''Se ingresa el mes y la función retorna la cantidad de películas que se estrenaron ese mes históricamente'''
+    mesEn = translator.translate(mes, dest='en').text
     df["release_date"] = pd.to_datetime(df["release_date"])
-    df["release_month_name"] = df['release_date'].dt.month_name(locale='es')#locale='es'
-    respuesta = df["release_month_name"][df["release_month_name"] == mes].count()
+    df["release_month_name"] = df['release_date'].dt.month_name()#locale='es'
+    respuesta = df["release_month_name"][df["release_month_name"] == mesEn].count()
     if respuesta > 0:
         return {'mes':mes, 'cantidad': f"{respuesta}"  }
     return "Valor invalido.. Ej (January) "
@@ -42,9 +44,10 @@ def peliculas_mes(mes: str):
 @app.get("/peliculas_dia/{dia}")
 def peliculas_dia(dia: str):
     '''Se ingresa el dia y la función retorna la cantidad de peliculas que se estrenaron ese dia históricamente'''
+    diaEn = translator.translate(dia, dest='en').text
     df["release_date"] = pd.to_datetime(df["release_date"])
-    df["release_day_name"] = df['release_date'].dt.day_name(locale='es')#locale='es'
-    respuesta = df["release_day_name"][df["release_day_name"]== dia].count()
+    df["release_day_name"] = df['release_date'].dt.day_name()#locale='es'
+    respuesta = df["release_day_name"][df["release_day_name"]== diaEn].count()
     if respuesta > 0:
         return {'dia':dia, 'cantidad':f"{respuesta}"}
     return "Valor invalido.. Ej (Monday)"
@@ -111,7 +114,3 @@ def get_recommendation(titulo: str):
     plReco = plReco.sort_values(by="popularity", ascending= False)  
     return plReco.head(5)
 
-locale.setlocale(
-    category=locale.LC_ALL,
-    locale=""
-)
