@@ -34,6 +34,18 @@ opciones_mes_letras = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "j
 df["release_month_name"] = np.select(mes_letras, opciones_mes_letras)
 
 
+df["release_day_name"] = df["release_date"].dt.day_name()
+dia_letras= [
+    df["release_day_name"] == 'Monday',
+    df["release_day_name"] == 'Friday',
+    df["release_day_name"] == 'Thursday',
+    df["release_day_name"] == 'Wednesday',
+    df["release_day_name"] == 'Saturday',
+    df["release_day_name"] == 'Tuesday',
+    df["release_day_name"] == 'Sunday']
+opciones_dia_letras = ["lunes", "martes", "miercoles", 'jueves', 'viernes', 'sabado', 'domingo']
+df["release_day_name"] = np.select(dia_letras, opciones_dia_letras)
+
 
 # A-) def peliculas_mes(mes): 
 @app.get("/peliculas_mes/{mes}")
@@ -58,7 +70,7 @@ def peliculas_dia(dia: str):
     respuesta = df["release_day_name"][df["release_day_name"]== dia].count()
     if respuesta > 0:
         return {'dia':dia, 'cantidad':f"{respuesta}"}
-    return "Valor invalido.. Ej (Monday)"
+    return "Valor invalido.. Ej (lunes)"
 
 
 # C-) def franquicia(franquicia): 
