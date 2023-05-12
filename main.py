@@ -12,10 +12,13 @@ app = FastAPI()
 # Levantar el servidor
 # uvicorn ProyectoApi:app --reload
 
+# en render.com me crea problemas por _setlocale
+#  y para corregir el problema se ejecuta el cambio de localidad 
 locale.setlocale(
     category=locale.LC_ALL,
     locale=""
 )
+
 
 df = pd.read_csv('./DataSet/movies_dataset_normalizado.csv' )
 
