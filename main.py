@@ -13,10 +13,12 @@ app = FastAPI()
 # Levantar el servidor
 # uvicorn main:app --reload
 
-# en render.com me crea problemas por _setlocale
+# en render.com mlocale -ae crea problemas por _setlocale
 #  y para corregir el problema se ejecuta el cambio de localidad 
 #locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
-locale.setlocale(locale.LC_ALL, locale.locale_aliases['de_DE'])
+
+#Railway, Back4app, fly.io, digitalocean
+#locale.setlocale(locale.LC_ALL, locale.locale_aliases['de_DE'])
 
 df = pd.read_csv('./DataSet/movies_dataset_normalizado.csv' )
 
@@ -24,7 +26,7 @@ df = pd.read_csv('./DataSet/movies_dataset_normalizado.csv' )
 
 # A-) def peliculas_mes(mes): 
 df["release_date"] = pd.to_datetime(df["release_date"])
-df["release_month_name"] = df['release_date'].dt.month_name(locale='es')
+df["release_month_name"] = df['release_date'].dt.month_name() #df["release_month_name"]
 
 
 @app.get("/peliculas_mes/{mes}")
@@ -37,7 +39,7 @@ def peliculas_mes(mes: str):
 
 
 # B-) def peliculas_dia(dia): 
-df["release_day_name"] = df['release_date'].dt.day_name(locale='es')
+df["release_day_name"] = df['release_date'].dt.day_name() #locale='es'
 
 @app.get("/peliculas_dia/{dia}")
 def peliculas_dia(dia: str):
