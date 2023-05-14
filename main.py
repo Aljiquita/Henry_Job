@@ -7,6 +7,7 @@ from typing import Text, Optional
 from uuid import uuid4 as uui
 import numpy as np
 
+
  
 
 
@@ -127,7 +128,7 @@ def recomendacion(titulo: str):
 @app.get("/get_recommendation/{titulo}")
 def get_recommendation(titulo: str):
     df = pd.read_csv("./DataSet/movies_dataset_Para_EDA.csv")
-    plReco = df[["title", 'popularity']][df['title'].str.contains(f"{titulo.title()}")]
-    plReco = plReco.sort_values(by="popularity", ascending= False)  
+    plReco = df[["title", 'vote_average']][df['title'].str.contains(f"{titulo.title()}")]
+    plReco = plReco.sort_values(by='vote_average', ascending= False)  
     return plReco.head(5)
 
