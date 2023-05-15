@@ -1,29 +1,4 @@
 
-"""import pandas as pd
-import datetime as dt
-from datetime import datetime
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-from typing import Text, Optional
-from uuid import uuid4 as uui
-import numpy as np
-import joblib
-
-import nltk
-from nltk.corpus import wordnet
-
-from nltk.stem import WordNetLemmatizer
-wordnet_lemmatizer = WordNetLemmatizer() 
-
-from nltk.stem import PorterStemmer
-stemmer = PorterStemmer()
-
-import re
-
-import sklearn
-#import scikit
-from sklearn.linear_model import LinearRegression
-"""
 import pandas as pd
 import datetime as dt
 import numpy as np
@@ -45,11 +20,15 @@ from sklearn.linear_model import LinearRegression
 
 
 app = FastAPI()
-
 #Importamos archivos y modelos
 df = pd.read_csv('./DataSet/movies_dataset_normalizado.csv' )
 modelo_entrenado = joblib.load("./DataSet/prediccion_rl.plk")
 df_predic = pd.read_parquet("./DataSet/token.parquet")
+
+#import pickle
+
+#with open('prediccion_SVC.plk', 'rb') as archivo:
+    #modelo_entrenado = pickle.load(archivo)
 
 df["release_date"] = pd.to_datetime(df["release_date"])
 df["release_month_name"] = df["release_date"].dt.month
@@ -191,7 +170,7 @@ def recomendacion(titulo: str):
     return "No se Reporta Este Titulo de Película Relacionado"
 
 
-@app.get("/get_recommendation/{titulo}")
+#@app.get("/get_recommendation/{titulo}")
 def get_recommendation(titulo: str):
     palabra = listar_titulo(titulo)
     keys = list(df_predic.loc[0])
@@ -208,4 +187,6 @@ def get_recommendation(titulo: str):
     pred_puntu = modelo_entrenado.predict(predicion)[0] 
     dk =  df["title"][df["vote_average"] <= pred_puntu]
     return list(dk.head(5))
+
+get_recommendation("Toy Story")
 
