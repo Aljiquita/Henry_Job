@@ -6,6 +6,7 @@ from pydantic import BaseModel
 from typing import Text, Optional
 from uuid import uuid4 as uui
 import numpy as np
+import joblib
 
 
  
