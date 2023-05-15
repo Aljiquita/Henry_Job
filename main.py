@@ -8,13 +8,25 @@ from uuid import uuid4 as uui
 import numpy as np
 import joblib
 
+import nltk
+from nltk.corpus import wordnet
 
- 
+from nltk.stem import WordNetLemmatizer
+wordnet_lemmatizer = WordNetLemmatizer() 
+
+from nltk.stem import PorterStemmer
+stemmer = PorterStemmer()
+
+import re
 
 
 app = FastAPI()
 
+#Importamos archivos y modelos
 df = pd.read_csv('./DataSet/movies_dataset_normalizado.csv' )
+modelo_entrenado = joblib.load("./DataSet/prediccion_rl.plk")
+df_predic = pd.read_parquet("./DataSet/token.parquet")
+
 
 df["release_date"] = pd.to_datetime(df["release_date"])
 df["release_month_name"] = df["release_date"].dt.month
@@ -48,6 +60,36 @@ dia_letras= [
 opciones_dia_letras = ["lunes", "martes", "miercoles", 'jueves', 'viernes', 'sabado', 'domingo']
 df["release_day_name"] = np.select(dia_letras, opciones_dia_letras)
 
+def get_wordnet_pos(word):
+    """Map POS tag to first character lemmatize() accepts"""
+    tag = nltk.pos_tag([word])[0][1][0].upper()
+    tag_dict = {"J": wordnet.ADJ,
+                "N": wordnet.NOUN,
+                "V": wordnet.VERB,
+                "R": wordnet.ADV}
+
+    return tag_dict.get(tag, wordnet.NOUN)
+stopwords = nltk.corpus.stopwords.words('english')
+
+
+def listar_titulo(titulo: str):
+    # Le vamos aplicando la Normalizacion y luega el Stemming al titulo
+    palabra = titulo
+    # Vamos a reemplzar los caracteres que no sean leras por espacios
+    palabra=re.sub("[^a-zA-Z]"," ",str(palabra))
+    # Pasamos todo a minúsculas
+    palabra=palabra.lower()
+    # Tokenizamos para separar las palabras del titular
+    palabra= nltk.word_tokenize(palabra)
+    # Aplicamos el Lemmatizer (Esto puede tardar un ratito)
+    frase_lemma = [wordnet_lemmatizer.lemmatize(w, get_wordnet_pos(w)) for w in palabra]
+    # Eliminamos las palabras de menos de 3 letras
+    palabra = [palabra for palabra in palabra if len(palabra)>2]
+    # Sacamos las Stopwords
+    palabra = [palabra for palabra in palabra if not palabra in stopwords]
+    # Aplicamos la funcion para buscar la raiz de las palabras
+    palabra=[stemmer.stem(palabra) for palabra in palabra]
+    return palabra
 
 # A-) def peliculas_mes(mes): 
 @app.get("/peliculas_mes/{mes}")
@@ -128,8 +170,19 @@ def recomendacion(titulo: str):
 
 @app.get("/get_recommendation/{titulo}")
 def get_recommendation(titulo: str):
-    df = pd.read_csv("./DataSet/movies_dataset_Para_EDA.csv")
-    plReco = df[["title", 'vote_average']][df['title'].str.contains(f"{titulo.title()}")]
-    plReco = plReco.sort_values(by='vote_average', ascending= False)  
-    return plReco.head(5)
+    palabra = listar_titulo(titulo)
+    keys = list(df_predic.loc[0])
+    dictionary = {key: 0 for key in keys}
+    data_set_pred = pd.DataFrame(dictionary, index=[0])
+
+    # recorre la lista de palabras y crea la nueva prediccion
+    for p in palabra:
+        token = int()
+        if p in df_predic.columns:
+            token = df_predic[f"{p}"][0]
+        dictionary[token] = [1]
+    predicion = pd.DataFrame(dictionary)
+    pred_puntu = modelo_entrenado.predict(predicion)[0] 
+    dk =  df["title"][df["vote_average"] <= pred_puntu]
+    return list(dk.head(5))
 
