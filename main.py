@@ -19,6 +19,11 @@ stemmer = PorterStemmer()
 
 import re
 
+import sklearn
+import scikit
+from sklearn.linear_model import LinearRegression
+
+
 
 app = FastAPI()
 
@@ -26,7 +31,6 @@ app = FastAPI()
 df = pd.read_csv('./DataSet/movies_dataset_normalizado.csv' )
 modelo_entrenado = joblib.load("./DataSet/prediccion_rl.plk")
 df_predic = pd.read_parquet("./DataSet/token.parquet")
-
 
 df["release_date"] = pd.to_datetime(df["release_date"])
 df["release_month_name"] = df["release_date"].dt.month
