@@ -1,4 +1,5 @@
-import pandas as pd
+
+"""import pandas as pd
 import datetime as dt
 from datetime import datetime
 from fastapi import FastAPI, HTTPException
@@ -20,9 +21,27 @@ stemmer = PorterStemmer()
 import re
 
 import sklearn
-import scikit
+#import scikit
 from sklearn.linear_model import LinearRegression
+"""
+import pandas as pd
+import datetime as dt
+import numpy as np
+from datetime import datetime
+from fastapi import FastAPI
+import joblib
+import fastparquet
+import nltk
+import re
+from nltk.stem import WordNetLemmatizer
+wordnet_lemmatizer = WordNetLemmatizer()
 
+from nltk.stem import PorterStemmer
+stemmer = PorterStemmer()
+
+from nltk.corpus import wordnet
+
+from sklearn.linear_model import LinearRegression
 
 
 app = FastAPI()
