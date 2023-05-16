@@ -69,6 +69,9 @@ B-  Se crea 3 función para analizar sus trabajo y tomar la decision de utilizar
 *   get_recommendation => Es la función que ira en la API con el modelo seleccionado => Regresión Lineal
 c-  Se instala en la API (main.py), con la lamentable citación que al importar el modelo entra en conflicto y no se puede ejecutar.<br>
 
-### NOTA: Al tratar de montar la función "def get_recommendation(titulo: str)",  la importación del modelo es imposible y aunque se intenta con multiples métodos no es exitoso el proceso, curiosamente render permite su ingreso y al ejecutarlo des render o desde un archivo python (.py) no funciona, Pero si se ejecuta desde el Jupyter Notebook la ejecuta a la perfección y la es TODO UN ÉXITO.                        
+### NOTA: Al tratar de montar la función "def get_recommendation(titulo: str)",  la importación del modelo es imposible y aunque se intenta con multiples métodos no es exitoso el proceso, curiosamente render permite su ingreso y al ejecutarlo des render o desde un archivo python (.py) no funciona, Pero si se ejecuta desde el Jupyter Notebook la ejecuta a la perfección y la es TODO UN ÉXITO.
+
+D- Se crea un nuevo código para la función get_recommendation con la cual sea posible ejecutarse en la API, trabajado en el archivo "EDA_get_recommendation.ipynb"con las siguientes características:
+*   Importamos el archivo "movies_dataset_Para_EDA.csv"
 
 

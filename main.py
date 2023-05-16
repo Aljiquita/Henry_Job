@@ -64,7 +64,7 @@ dia_letras= [
 opciones_dia_letras = ["lunes", "martes", "miercoles", 'jueves', 'viernes', 'sabado', 'domingo']
 df["release_day_name"] = np.select(dia_letras, opciones_dia_letras)
 
-stopwords = nltk.corpus.stopwords.words('english')
+
 
 def get_wordnet_pos(word):
     #Map POS tag to first character lemmatize() accepts
@@ -76,7 +76,7 @@ def get_wordnet_pos(word):
 
     return tag_dict.get(tag, wordnet.NOUN)
 
-
+#stopwords = nltk.corpus.stopwords.words('english')
 
 
 def listar_titulo(titulo: str):
@@ -93,7 +93,7 @@ def listar_titulo(titulo: str):
     # Eliminamos las palabras de menos de 3 letras
     palabra = [palabra for palabra in palabra if len(palabra)>2]
     # Sacamos las Stopwords
-    palabra = [palabra for palabra in palabra if not palabra in stopwords]
+    #palabra = [palabra for palabra in palabra if not palabra in stopwords]
     # Aplicamos la funcion para buscar la raiz de las palabras
     palabra=[stemmer.stem(palabra) for palabra in palabra]
     return palabra
@@ -183,6 +183,6 @@ def get_recommendation(titulo: str):
     lis_peli = list(plReco["title"].head(5)) 
     
     return lis_peli
-
+#print(get_recommendation("Toy Story Collection"))
 
 
