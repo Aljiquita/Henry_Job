@@ -25,8 +25,7 @@ app = FastAPI()
 df = pd.read_csv('./DataSet/movies_dataset_normalizado.csv' )
 
 #Importamos archivos y modelos
-modelo_entrenado = load("./DataSet/prediccion_rl.pkl")
-#modelo_entrenado_SVC = load("./DataSet/prediccion_SVC.pkl")
+data_set_EDA = pd.read_parquet("./DataSet/data_set_EDA.parquet")
 df_predic = pd.read_parquet("./DataSet/token.parquet")
 
 
@@ -173,23 +172,13 @@ def recomendacion(titulo: str):
     return "No se Reporta Este Titulo de Película Relacionado"
 
 
-#@app.get("/get_recommendation/{titulo}")
+@app.get("/get_recommendation/{titulo}")
 def get_recommendation(titulo: str):
     palabra = listar_titulo(titulo)
-    keys = list(df_predic.loc[0])
-    dictionary = {key: 0 for key in keys}
-    data_set_pred = pd.DataFrame(dictionary, index=[0])
+    plReco = data_set_EDA[["title", "vote_average"]][data_set_EDA['title_lemmatizer'].str.contains('|'.join(palabra))].sort_values("vote_average", ascending= False)
+    lis_peli = list(plReco["title"].head(5)) 
+    
+    return lis_peli
 
-    # recorre la lista de palabras y crea la nueva prediccion
-    for p in palabra:
-        token = int()
-        if p in df_predic.columns:
-            token = df_predic[f"{p}"][0]
-        dictionary[token] = [1]
-    predicion = pd.DataFrame(dictionary)
-    pred_puntu = modelo_entrenado.predict(predicion)[0] 
-    dk =  df["title"][df["vote_average"] <= pred_puntu]
-    return list(dk.head(5))
 
-get_recommendation("Toy Story")
 
