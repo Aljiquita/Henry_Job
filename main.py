@@ -159,6 +159,6 @@ def get_recommendation(titulo: str):
     lis_peli = list(plReco["title"].head(5)) 
     
     return lis_peli
-@print(get_recommendation("Toy Story Collection"))
+#print(get_recommendation("Toy Story Collection"))
 
 
