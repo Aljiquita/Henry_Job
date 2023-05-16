@@ -72,6 +72,8 @@ c-  Se instala en la API (main.py), con la lamentable citación que al importar 
 ### NOTA: Al tratar de montar la función "def get_recommendation(titulo: str)",  la importación del modelo es imposible y aunque se intenta con multiples métodos no es exitoso el proceso, curiosamente render permite su ingreso y al ejecutarlo des render o desde un archivo python (.py) no funciona, Pero si se ejecuta desde el Jupyter Notebook la ejecuta a la perfección y la es TODO UN ÉXITO.
 
 D- Se crea un nuevo código para la función get_recommendation con la cual sea posible ejecutarse en la API, trabajado en el archivo "EDA_get_recommendation.ipynb"con las siguientes características:
-*   Importamos el archivo "movies_dataset_Para_EDA.csv"
+*   Se tiene encuentra el Dta Set,  Importamos el archivo "movies_dataset_Para_EDA.csv".
+*   Normalizamos, depuramos o lematizamos la Data Set en su columnas "title", creando una columna nueva llamada "title_lemmatizer".
+ 
 
 

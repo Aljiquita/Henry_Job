@@ -25,7 +25,8 @@ app = FastAPI()
 df = pd.read_csv('./DataSet/movies_dataset_normalizado.csv' )
 
 #Importamos archivos y modelos
-data_set_EDA = pd.read_parquet("./DataSet/data_set_EDA.parquet")
+
+df_get_reco = pd.read_csv("./DataSet/movies_dataset_Para_EDA.csv")
 df_predic = pd.read_parquet("./DataSet/token.parquet")
 
 
@@ -63,20 +64,6 @@ dia_letras= [
     df["release_day_name"] == 'Sunday']
 opciones_dia_letras = ["lunes", "martes", "miercoles", 'jueves', 'viernes', 'sabado', 'domingo']
 df["release_day_name"] = np.select(dia_letras, opciones_dia_letras)
-
-
-"""
-def get_wordnet_pos(word):
-    #Map POS tag to first character lemmatize() accepts
-    tag = nltk.pos_tag([word])[0][1][0].upper()
-    tag_dict = {"J": wordnet.ADJ,
-                "N": wordnet.NOUN,
-                "V": wordnet.VERB,
-                "R": wordnet.ADV}
-
-    return tag_dict.get(tag, wordnet.NOUN)
-"""
-#stopwords = nltk.corpus.stopwords.words('english')
 
 
 def listar_titulo(titulo: str):
@@ -179,7 +166,7 @@ def recomendacion(titulo: str):
 @app.get("/get_recommendation/{titulo}")
 def get_recommendation(titulo: str):
     palabra = listar_titulo(titulo)
-    plReco = data_set_EDA[["title", "vote_average"]][data_set_EDA['title_lemmatizer'].str.contains('|'.join(palabra))].sort_values("vote_average", ascending= False)
+    plReco = df_get_reco[["title", "vote_average"]][df_get_reco['title'].str.contains('|'.join(palabra))].sort_values("vote_average", ascending= False)
     lis_peli = list(plReco["title"].head(5)) 
     
     return lis_peli
