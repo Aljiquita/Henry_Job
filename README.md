@@ -76,6 +76,7 @@ D- Se crea un nuevo código para la función get_recommendation con la cual sea 
 *   Normalizamos, depuramos o lematizamos la Data Set en su columnas "title", creando una columna nueva llamada "title_lemmatizer".
 * La función toma el nombre de la película y crea un listados de palabra para comparar cada una de las palabras en los títulos de películas para. 
 
-F- Lamentablemente las librerias que  
+F- Lamentablemente las librerías que que realizan el lematizado de los títulos del las películas crean conflicto con render, por falta de tiempo y experticia en el tema  an solo que pude hacer fue:
+*   Tomar el Data Set del arvivo
 
 

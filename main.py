@@ -4,20 +4,9 @@ import datetime as dt
 import numpy as np
 from datetime import datetime
 from fastapi import FastAPI
-from joblib import load
 import fastparquet
-import nltk
-import re
-from  fun import listar_titulo_sin_lematizar, get_recommendation_lema
+from  fun import listar_titulo_sin_lematizar
 
-
-#from nltk.stem import WordNetLemmatizer
-#wordnet_lemmatizer = WordNetLemmatizer()
-
-#from nltk.stem import PorterStemmer
-#stemmer = PorterStemmer()
-
-#from nltk.corpus import wordnet
 
 from sklearn.linear_model import LinearRegression
 #uvicorn main:app --host 0.0.0.0 --port 10000
