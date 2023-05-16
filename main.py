@@ -5,7 +5,8 @@ import numpy as np
 from datetime import datetime
 from fastapi import FastAPI
 import fastparquet
-from  fun import listar_titulo_sin_lematizar
+#from  fun import listar_titulo_sin_lematizar
+import nltk
 
 
 from sklearn.linear_model import LinearRegression
@@ -15,6 +16,7 @@ app = FastAPI()
 
 #Importamos archivos y modelos
 df = pd.read_csv('./DataSet/movies_dataset_normalizado.csv' )
+data_set_EDA = pd.read_parquet("./DataSet/data_set_EDA.parquet")
 df_get_reco = pd.read_csv("./DataSet/movies_dataset_Para_EDA.csv")
 df_predic = pd.read_parquet("./DataSet/token.parquet")
 
@@ -131,12 +133,15 @@ def recomendacion(titulo: str):
 
 @app.get("/getrecommendation/{titulo}")
 def getrecommendation(titulo: str):
-    palabra = listar_titulo_sin_lematizar(titulo)
+    palabra = titulo
+    palabra= nltk.word_tokenize(palabra)
+    palabra = [palabra for palabra in palabra if len(palabra)>2]
+    #palabra = listar_titulo_sin_lematizar(titulo)
     plReco = df_get_reco[["title", "vote_average"]][df_get_reco['title'].str.contains('|'.join(palabra))].sort_values("vote_average", ascending= False)
-    lis_peli = list(plReco["title"].head(5)) 
+    lis_peli = list(plReco["title"].head(5))  
     
     return {'lista recomendada': f"{lis_peli}" }
-# print(getrecommendation("Toy Story"))
+#print(getrecommendation("Toy Story"))
 
 
 
