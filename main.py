@@ -66,25 +66,14 @@ opciones_dia_letras = ["lunes", "martes", "miercoles", 'jueves', 'viernes', 'sab
 df["release_day_name"] = np.select(dia_letras, opciones_dia_letras)
 
 
-def listar_titulo(titulo: str):
+def listar_titulo_sin_lematizar(titulo: str):
     # Le vamos aplicando la Normalizacion y luega el Stemming al titulo
     palabra = titulo
-    # Vamos a reemplzar los caracteres que no sean leras por espacios
-    palabra=re.sub("[^a-zA-Z]"," ",str(palabra))
-    # Pasamos todo a minúsculas
-    palabra=palabra.lower()
     # Tokenizamos para separar las palabras del titular
     palabra= nltk.word_tokenize(palabra)
-    # Aplicamos el Lemmatizer (Esto puede tardar un ratito)
-    #frase_lemma = [wordnet_lemmatizer.lemmatize(w, get_wordnet_pos(w)) for w in palabra]
     # Eliminamos las palabras de menos de 3 letras
     palabra = [palabra for palabra in palabra if len(palabra)>2]
-    # Sacamos las Stopwords
-    #palabra = [palabra for palabra in palabra if not palabra in stopwords]
-    # Aplicamos la funcion para buscar la raiz de las palabras
-    palabra=[stemmer.stem(palabra) for palabra in palabra]
     return palabra
-
 
 # A-) def peliculas_mes(mes): 
 @app.get("/peliculas_mes/{mes}")
@@ -163,13 +152,13 @@ def recomendacion(titulo: str):
     return "No se Reporta Este Titulo de Película Relacionado"
 
 
-@app.get("/get_recommendation/{titulo}")
-def lisRecommendation(titulo: str):
-    palabra = listar_titulo(titulo)
+#@app.get("/get_recommendation/{titulo}")
+def get_recommendation(titulo: str):
+    palabra = listar_titulo_sin_lematizar(titulo)
     plReco = df_get_reco[["title", "vote_average"]][df_get_reco['title'].str.contains('|'.join(palabra))].sort_values("vote_average", ascending= False)
     lis_peli = list(plReco["title"].head(5)) 
     
     return lis_peli
-#print(get_recommendation("Toy Story Collection"))
+print(get_recommendation("Toy Story Collection"))
 
 
