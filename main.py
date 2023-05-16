@@ -74,7 +74,7 @@ def get_wordnet_pos(word):
                 "R": wordnet.ADV}
 
     return tag_dict.get(tag, wordnet.NOUN)
-#stopwords = nltk.corpus.stopwords.words('english')
+stopwords = nltk.corpus.stopwords.words('english')
 
 
 
@@ -92,7 +92,7 @@ def listar_titulo(titulo: str):
     # Eliminamos las palabras de menos de 3 letras
     palabra = [palabra for palabra in palabra if len(palabra)>2]
     # Sacamos las Stopwords
-    #palabra = [palabra for palabra in palabra if not palabra in stopwords]
+    palabra = [palabra for palabra in palabra if not palabra in stopwords]
     # Aplicamos la funcion para buscar la raiz de las palabras
     palabra=[stemmer.stem(palabra) for palabra in palabra]
     return palabra
