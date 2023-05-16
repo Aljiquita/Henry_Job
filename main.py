@@ -14,7 +14,7 @@ wordnet_lemmatizer = WordNetLemmatizer()
 from nltk.stem import PorterStemmer
 stemmer = PorterStemmer()
 
-from nltk.corpus import wordnet
+#from nltk.corpus import wordnet
 
 from sklearn.linear_model import LinearRegression
 #uvicorn main:app --host 0.0.0.0 --port 10000
@@ -65,7 +65,7 @@ opciones_dia_letras = ["lunes", "martes", "miercoles", 'jueves', 'viernes', 'sab
 df["release_day_name"] = np.select(dia_letras, opciones_dia_letras)
 
 
-
+"""
 def get_wordnet_pos(word):
     #Map POS tag to first character lemmatize() accepts
     tag = nltk.pos_tag([word])[0][1][0].upper()
@@ -75,7 +75,7 @@ def get_wordnet_pos(word):
                 "R": wordnet.ADV}
 
     return tag_dict.get(tag, wordnet.NOUN)
-
+"""
 #stopwords = nltk.corpus.stopwords.words('english')
 
 
@@ -89,7 +89,7 @@ def listar_titulo(titulo: str):
     # Tokenizamos para separar las palabras del titular
     palabra= nltk.word_tokenize(palabra)
     # Aplicamos el Lemmatizer (Esto puede tardar un ratito)
-    frase_lemma = [wordnet_lemmatizer.lemmatize(w, get_wordnet_pos(w)) for w in palabra]
+    #frase_lemma = [wordnet_lemmatizer.lemmatize(w, get_wordnet_pos(w)) for w in palabra]
     # Eliminamos las palabras de menos de 3 letras
     palabra = [palabra for palabra in palabra if len(palabra)>2]
     # Sacamos las Stopwords
