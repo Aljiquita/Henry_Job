@@ -132,7 +132,7 @@ def recomendacion(titulo: str):
     return "No se Reporta Este Titulo de Película Relacionado"
 #print(recomendacion("Toy Story"))
 
-@app.get("/get_recommendation/{titulo}")
+@app.get("/getrecommendation/{titulo}")
 def getrecommendation(titulo: str):
     palabra = listar_titulo_sin_lematizar(titulo)
     plReco = df_get_reco[["title", "vote_average"]][df_get_reco['title'].str.contains('|'.join(palabra))].sort_values("vote_average", ascending= False)
