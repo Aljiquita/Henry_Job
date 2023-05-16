@@ -19,9 +19,6 @@ df_get_reco = pd.read_csv("./DataSet/movies_dataset_Para_EDA.csv")
 df_predic = pd.read_parquet("./DataSet/token.parquet")
 
 
-
-
-
 df["release_date"] = pd.to_datetime(df["release_date"])
 df["release_month_name"] = df["release_date"].dt.month
 mes_letras= [
@@ -138,7 +135,7 @@ def getrecommendation(titulo: str):
     plReco = df_get_reco[["title", "vote_average"]][df_get_reco['title'].str.contains('|'.join(palabra))].sort_values("vote_average", ascending= False)
     lis_peli = list(plReco["title"].head(5)) 
     
-    return {'lista recomendada': lis_peli }
+    return {'lista recomendada': f"{lis_peli}" }
 #print(getrecommendation("Toy Story"))
 
 
