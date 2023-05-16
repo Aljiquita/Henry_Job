@@ -64,8 +64,9 @@ dia_letras= [
 opciones_dia_letras = ["lunes", "martes", "miercoles", 'jueves', 'viernes', 'sabado', 'domingo']
 df["release_day_name"] = np.select(dia_letras, opciones_dia_letras)
 
+"""
 def get_wordnet_pos(word):
-    """Map POS tag to first character lemmatize() accepts"""
+    #Map POS tag to first character lemmatize() accepts
     tag = nltk.pos_tag([word])[0][1][0].upper()
     tag_dict = {"J": wordnet.ADJ,
                 "N": wordnet.NOUN,
@@ -94,6 +95,7 @@ def listar_titulo(titulo: str):
     # Aplicamos la funcion para buscar la raiz de las palabras
     palabra=[stemmer.stem(palabra) for palabra in palabra]
     return palabra
+"""
 
 # A-) def peliculas_mes(mes): 
 @app.get("/peliculas_mes/{mes}")
@@ -171,7 +173,7 @@ def recomendacion(titulo: str):
         return  {'lista recomendada': f"{plReco }" }
     return "No se Reporta Este Titulo de Película Relacionado"
 
-
+"""
 @app.get("/get_recommendation/{titulo}")
 def get_recommendation(titulo: str):
     palabra = listar_titulo(titulo)
@@ -180,5 +182,5 @@ def get_recommendation(titulo: str):
     
     return lis_peli
 
-
+"""
 
