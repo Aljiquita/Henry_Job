@@ -77,6 +77,10 @@ D- Se crea un nuevo código para la función get_recommendation con la cual sea 
 * La función toma el nombre de la película y crea un listados de palabra para comparar cada una de las palabras en los títulos de películas para. 
 
 F- Lamentablemente las librerías que que realizan el lematizado de los títulos del las películas crean conflicto con render, por falta de tiempo y experticia en el tema  an solo que pude hacer fue:
-*   Tomar el Data Set del arvivo
+*   Tomar el Data Set del archivo "EDA_get_recommendation.ipynb".
+*   Tan solo se lista el titulo de la película ingresada en la función.
+*   Se busca el listado de palabras del titulo en los la columnas "title" del Data Set
+
+NOTA PERSONA: Fue muy frustrante la experiencia 
 
 

@@ -138,7 +138,7 @@ def get_recommendation(titulo: str):
     plReco = df_get_reco[["title", "vote_average"]][df_get_reco['title'].str.contains('|'.join(palabra))].sort_values("vote_average", ascending= False)
     lis_peli = list(plReco["title"].head(5)) 
     
-    return lis_peli
+    return {lis_peli}
 #print(get_recommendation("Toy Story Collection"))
 
 
