@@ -8,6 +8,9 @@ from joblib import load
 import fastparquet
 import nltk
 import re
+from  fun import listar_titulo_sin_lematizar
+
+
 #from nltk.stem import WordNetLemmatizer
 #wordnet_lemmatizer = WordNetLemmatizer()
 
@@ -62,15 +65,6 @@ dia_letras= [
 opciones_dia_letras = ["lunes", "martes", "miercoles", 'jueves', 'viernes', 'sabado', 'domingo']
 df["release_day_name"] = np.select(dia_letras, opciones_dia_letras)
 
-
-def listar_titulo_sin_lematizar(titulo: str):
-    # Le vamos aplicando la Normalizacion y luega el Stemming al titulo
-    palabra = titulo
-    # Tokenizamos para separar las palabras del titular
-    palabra= nltk.word_tokenize(palabra)
-    # Eliminamos las palabras de menos de 3 letras
-    palabra = [palabra for palabra in palabra if len(palabra)>2]
-    return palabra
 
 # A-) def peliculas_mes(mes): 
 @app.get("/peliculas_mes/{mes}")
