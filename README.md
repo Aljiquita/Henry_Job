@@ -81,6 +81,6 @@ F- Lamentablemente las librerías que que realizan el lematizado de los títulos
 *   Tan solo se lista el titulo de la película ingresada en la función.
 *   Se busca el listado de palabras del titulo en los la columnas "title" del Data Set
 
-NOTA PERSONA: Fue muy frustrante la experiencia 
+NOTA PERSONA: Fue muy frustrante la experiencia, Debido que en la ultima parte del proyecto realize un Modelo, lo entrene y al final no pude importar a un archivo .py, pero si en un Jupyter Notebook; Después de muchas horas de investigar y trabajas, cree una plan "B" de modelo, el cual lematize los títulos de las películas, pero render fue el problema en este caso, el cual creaba conflicto con las librería necesarias para el lematizado y por estar sobre la fecha limite del tiempo no investigue mas librería que hicieran este mismo trabajo de lematizado; la ultima opción y las sencilla fue listar las palabras del titulo de la pelicula ingresada a la función para posteriormente filtrar los títulos de películas del Data Set.. Repito - FUE MUY FRUSTRANTE ESTE PROYECTO -    
 
 

@@ -130,16 +130,16 @@ def recomendacion(titulo: str):
     if len(plReco) > 0:
         return  {'lista recomendada': f"{plReco }" }
     return "No se Reporta Este Titulo de Película Relacionado"
-
+#print(recomendacion("Toy Story"))
 
 @app.get("/get_recommendation/{titulo}")
-def get_recommendation(titulo: str):
+def getrecommendation(titulo: str):
     palabra = listar_titulo_sin_lematizar(titulo)
     plReco = df_get_reco[["title", "vote_average"]][df_get_reco['title'].str.contains('|'.join(palabra))].sort_values("vote_average", ascending= False)
     lis_peli = list(plReco["title"].head(5)) 
     
     return {'lista recomendada': lis_peli }
-#print(get_recommendation("Toy Story Collection"))
+#print(getrecommendation("Toy Story"))
 
 
 
