@@ -23,9 +23,6 @@ app = FastAPI()
 
 #Importamos archivos y modelos
 df = pd.read_csv('./DataSet/movies_dataset_normalizado.csv' )
-
-#Importamos archivos y modelos
-
 df_get_reco = pd.read_csv("./DataSet/movies_dataset_Para_EDA.csv")
 df_predic = pd.read_parquet("./DataSet/token.parquet")
 
