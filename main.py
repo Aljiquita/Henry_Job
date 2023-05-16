@@ -8,8 +8,8 @@ from joblib import load
 import fastparquet
 import nltk
 import re
-from nltk.stem import WordNetLemmatizer
-wordnet_lemmatizer = WordNetLemmatizer()
+#from nltk.stem import WordNetLemmatizer
+#wordnet_lemmatizer = WordNetLemmatizer()
 
 from nltk.stem import PorterStemmer
 stemmer = PorterStemmer()
@@ -164,7 +164,7 @@ def recomendacion(titulo: str):
 
 
 @app.get("/get_recommendation/{titulo}")
-def get_recommendation(titulo: str):
+def lisRecommendation(titulo: str):
     palabra = listar_titulo(titulo)
     plReco = df_get_reco[["title", "vote_average"]][df_get_reco['title'].str.contains('|'.join(palabra))].sort_values("vote_average", ascending= False)
     lis_peli = list(plReco["title"].head(5)) 
