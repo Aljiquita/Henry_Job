@@ -4,7 +4,7 @@ import datetime as dt
 import numpy as np
 from datetime import datetime
 from fastapi import FastAPI
-import joblib
+from joblib import load
 import fastparquet
 import nltk
 import re
@@ -20,15 +20,18 @@ from sklearn.linear_model import LinearRegression
 
 
 app = FastAPI()
+
 #Importamos archivos y modelos
 df = pd.read_csv('./DataSet/movies_dataset_normalizado.csv' )
-modelo_entrenado = joblib.load("./DataSet/prediccion_rl.plk")
+
+#Importamos archivos y modelos
+modelo_entrenado = load("./DataSet/prediccion_rl.pkl")
+#modelo_entrenado_SVC = load("./DataSet/prediccion_SVC.pkl")
 df_predic = pd.read_parquet("./DataSet/token.parquet")
 
-#import pickle
 
-#with open('prediccion_SVC.plk', 'rb') as archivo:
-    #modelo_entrenado = pickle.load(archivo)
+
+
 
 df["release_date"] = pd.to_datetime(df["release_date"])
 df["release_month_name"] = df["release_date"].dt.month
