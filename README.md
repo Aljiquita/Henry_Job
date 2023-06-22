@@ -11,20 +11,25 @@
 <h2 align=center> Estudiante: Alberto Jim Quijano Talero </h2>
 <h2 align=center> Cohorte: #10 Full Time </h2>
 
+### Repositorio video = https://drive.google.com/drive/u/0/folders/1nRi94RgWvGtjlMIeULJOAMYyQqAjUB-y
+
+### Github = https://github.com/Aljiquita/Henry_Job
+
+### Render = https://aljiquita.onrender.com
 
 ## 1- Transformaciones:  
-A- El archivo dispuesto para esta transformación es: Proyecto_DataFrame.ipynb.<br>
+A- El archivo dispuesto para esta transformación es: "Proyecto_DataFrame.ipynb".<br>
 B- Pasamos de 45449 filas a 45376.<br>
 C- Pasamos de columnas 23 a 18 columnas.<br>
 D- El resultado del trabajo realizado de acuerdo a los solicitado por el README para la transformación, se guardo en un nuevo DtaSet llamado "movies_dataset_normalizado.csv" ubicado en la carpeta  "DataSet"<br><br>
 
 
 ## 2- Desarrollo API
-A- se encuentra desarrollado su trabajo, organización y prueba de código en el archivo "Desarrollo API".<br>
-B- Para el desarrollo de este fase sse tubo en cuenta la importación de Data Set "movies_dataset_normalizado.csv". <br>
-C- La API de trabajo ya depurado y lista para subir a render.com, se llama "mani.py".<br>
-D- se Genero una cuenta en render.com la cual ya cuenta con la API funcional.<br> 
-E- el lik de la API es rende es  https://aljiquita.onrender.com/docs.<br><br>
+A- Se encuentra desarrollado el trabajo, organización y prueba de código en el archivo "Desarrollo API".<br>
+B- Para el desarrollo de este fase se tubo en cuenta el Data Set "movies_dataset_normalizado.csv". <br>
+C- La API de trabajo ya se depurado y lista para subir a render.com, se llama "mani.py".<br>
+D- Se Genero una cuenta en render.com la cual ya cuenta con la API funcional.<br> 
+E- El lik de la API es rende es  https://aljiquita.onrender.com/docs.<br><br>
 
 
 ## 3- Sistema de recomendación:
@@ -83,4 +88,5 @@ F- Lamentablemente las librerías que que realizan el lematizado de los títulos
 
 NOTA PERSONA: Fue muy frustrante la experiencia, Debido que en la ultima parte del proyecto realize un Modelo, lo entrene y al final no pude importar a un archivo .py, pero si en un Jupyter Notebook; Después de muchas horas de investigar y trabajas, cree una plan "B" de modelo, el cual lematize los títulos de las películas, pero render fue el problema en este caso, el cual creaba conflicto con las librería necesarias para el lematizado y por estar sobre la fecha limite del tiempo no investigue mas librería que hicieran este mismo trabajo de lematizado; la ultima opción y las sencilla fue listar las palabras del titulo de la pelicula ingresada a la función para posteriormente filtrar los títulos de películas del Data Set.. Repito - FUE MUY FRUSTRANTE ESTE PROYECTO -    
 
+---- La librería que me causo el problema fue "nltk" -----
 

@@ -136,7 +136,6 @@ def getrecommendation(titulo: str):
     palabra = titulo
     palabra = palabra.split()
     palabra = [palabra for palabra in palabra if len(palabra)>2]
-    #palabra = listar_titulo_sin_lematizar(titulo)
     plReco = df_get_reco[["title", "vote_average"]][df_get_reco['title'].str.contains('|'.join(palabra))].sort_values("vote_average", ascending= False)
     lis_peli = list(plReco["title"].head(5))  
     
